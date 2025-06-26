@@ -1,0 +1,102 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 0.798503 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 0.798503 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.2 
+            text = "Click" 
+        intervals [2]:
+            xmin = 0.2 
+            xmax = 0.37 
+            text = "on" 
+        intervals [3]:
+            xmin = 0.37 
+            xmax = 0.4620994737003595 
+            text = "the" 
+        intervals [4]:
+            xmin = 0.4620994737003595 
+            xmax = 0.798503 
+            text = "shirt" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 0.798503 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.2 
+            text = "k l I k" 
+        intervals [2]:
+            xmin = 0.2 
+            xmax = 0.37 
+            text = "Q n" 
+        intervals [3]:
+            xmin = 0.37 
+            xmax = 0.474989 
+            text = "D V" 
+        intervals [4]:
+            xmin = 0.474989 
+            xmax = 0.798503 
+            text = "S 3` t" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 0.798503 
+        intervals: size = 11 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.03 
+            text = "k" 
+        intervals [2]:
+            xmin = 0.03 
+            xmax = 0.06 
+            text = "l" 
+        intervals [3]:
+            xmin = 0.06 
+            xmax = 0.11 
+            text = "I" 
+        intervals [4]:
+            xmin = 0.11 
+            xmax = 0.2 
+            text = "k" 
+        intervals [5]:
+            xmin = 0.2 
+            xmax = 0.29 
+            text = "Q" 
+        intervals [6]:
+            xmin = 0.29 
+            xmax = 0.37 
+            text = "n" 
+        intervals [7]:
+            xmin = 0.37 
+            xmax = 0.41 
+            text = "D" 
+        intervals [8]:
+            xmin = 0.41 
+            xmax = 0.461663455641273 
+            text = "V" 
+        intervals [9]:
+            xmin = 0.461663455641273 
+            xmax = 0.649977 
+            text = "S" 
+        intervals [10]:
+            xmin = 0.649977 
+            xmax = 0.75 
+            text = "3`" 
+        intervals [11]:
+            xmin = 0.75 
+            xmax = 0.798503 
+            text = "t" 

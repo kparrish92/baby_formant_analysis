@@ -1,0 +1,125 @@
+---
+title: "Formant analysis and classifier results"
+format: html
+editor: source
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+library(here)
+library(tidyverse)
+library(e1071)
+library(caTools)
+library(caret)
+plot_data = read.csv(here("data", "text_tidy.csv"))
+
+goodale_theme <- function() {
+  theme(
+    panel.background = element_rect(fill = "white"),
+    axis.text = element_text(colour = "black", family = "Times New Roman", size = 14),
+    axis.title = element_text(colour = "black", family = "Times New Roman", size = 14),
+    legend.position = "bottom",
+    legend.title = element_text(colour = "black", family = "Times New Roman", size = 14),
+    legend.text = element_text(colour = "black", family = "Times New Roman", size = 14),
+    plot.title = element_text(colour = "black", family = "Times New Roman", size = 14, hjust = 0.5)  # Center align the title
+  )
+}
+
+
+
+run_classifier = function(data, split)
+{  
+split <- sample.split(data, SplitRatio = split)
+train_cl <- subset(data, split == "TRUE")
+test_cl <- subset(data, split == "FALSE")
+
+# Fitting Naive Bayes Model 
+# to training dataset
+#set.seed(120)  # Setting Seed
+classifier_cl <- naiveBayes(type ~ ., data = train_cl)
+classifier_cl
+
+# Predicting on test data'
+y_pred <- predict(classifier_cl, newdata = test_cl)
+
+# Confusion Matrix
+cm <- table(test_cl$type, y_pred)
+cm
+
+# Model Evaluation
+return(confusionMatrix(cm))
+}
+
+```
+
+```{r, echo=FALSE}
+plot_data %>% 
+  ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+  scale_color_manual(values = c("seagreen3", "orange")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
+```
+
+```{r, echo=FALSE}
+plot_data %>% 
+  filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant") %>%
+  ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+    scale_color_manual(values = c("seagreen3", "orange")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
+```
+
+
+```{r, echo=FALSE}
+read.csv(here("data", "text_tidy.csv")) %>% 
+  filter(f2 < 2000 & f1 < 750 & type == "fricative") %>% 
+  select(fileID, sentence) %>% 
+  separate(fileID, into = c("no", "version")) %>% 
+  group_by(no, sentence) %>% 
+  summarize(n = n()) %>% filter(n == 2) %>% select(-n) %>% 
+  knitr::kable()
+```
+
+```{r}
+
+filtered_data = plot_data %>% filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant")
+
+mid_formant_df = filtered_data %>% select(type, f1, f2, f3)
+mid_formant_df_all = plot_data %>% select(type, f1, f2, f3)
+
+onset_formant_df_all = plot_data %>% select(type, f1b, f2b, f3b)
+onset_formant_df = filtered_data %>% select(type, f1b, f2b, f3b)
+
+
+offset_formant_df_all = plot_data %>% select(type, f1e, f2e, f3e)
+offset_formant_df = filtered_data %>% select(type, f1e, f2e, f3e)
+
+```
+
+### Midpoint classifier (all data)
+```{r}
+run_classifier(mid_formant_df_all, .7)
+```
+
+### Midpoint classifier (filtered data)
+```{r}
+run_classifier(mid_formant_df, .7)
+```
+
+### Onset classifier (all data)
+```{r}
+run_classifier(onset_formant_df_all, .7)
+```
+
+### Onset classifier (filtered data)
+```{r}
+run_classifier(onset_formant_df, .7)
+```
+
+### Offset classifier (all data)
+```{r}
+run_classifier(offset_formant_df_all, .7)
+```
+
+### Offset classifier (filtered data)
+```{r}
+run_classifier(offset_formant_df, .7)
+```

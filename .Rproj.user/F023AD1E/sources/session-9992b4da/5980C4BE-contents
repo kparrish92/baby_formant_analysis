@@ -1,0 +1,59 @@
+
+library(GaussianNaiveBayes)
+library(here)
+library(tidyverse)
+
+formants = read.csv(here("data", "formants.csv")) 
+
+text = read.csv(here("data", "text.csv"))
+
+text_list = list()
+
+for (i in 1:64) {
+  text_list[[i]] = data.frame(file_name_append = c(paste0(text$Item[i],"_V1"),
+                                                   paste0(text$Item[i],"_V2")),
+                              sentence = text$Sentence[i],
+                              consonant = text$consonant[i],
+                              type = text$type[i])
+}
+
+text_df = do.call(rbind, text_list) %>% 
+  select(file_name_append, type, consonant) %>% 
+  rename("fileID" = "file_name_append") %>% 
+  left_join(formants)
+
+
+data = text_df %>% 
+  filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant") %>% 
+  select(type, f1e, f2e, f3e, f1,f2,f3, f1b, f2b, f3b) 
+
+# Loading package
+library(e1071)
+library(caTools)
+library(caret)
+
+# Splitting data into train
+# and test data
+
+
+
+
+split <- sample.split(data, SplitRatio = 0.7)
+train_cl <- subset(data, split == "TRUE")
+test_cl <- subset(data, split == "FALSE")
+
+# Fitting Naive Bayes Model 
+# to training dataset
+# set.seed(120)  # Setting Seed
+classifier_cl <- naiveBayes(type ~ ., data = train_cl)
+classifier_cl
+
+# Predicting on test data'
+y_pred <- predict(classifier_cl, newdata = test_cl)
+
+# Confusion Matrix
+cm <- table(test_cl$type, y_pred)
+cm
+
+# Model Evaluation
+confusionMatrix(cm)

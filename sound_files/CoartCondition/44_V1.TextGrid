@@ -1,0 +1,110 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 0.762562 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT-MAU" 
+        xmin = 0 
+        xmax = 0.762562 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.18 
+            text = "Click" 
+        intervals [2]:
+            xmin = 0.18 
+            xmax = 0.29 
+            text = "on" 
+        intervals [3]:
+            xmin = 0.29 
+            xmax = 0.36626428652738763 
+            text = "the" 
+        intervals [4]:
+            xmin = 0.36626428652738763 
+            xmax = 0.762562 
+            text = "remote" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN-MAU" 
+        xmin = 0 
+        xmax = 0.762562 
+        intervals: size = 4 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.18 
+            text = "k l I k" 
+        intervals [2]:
+            xmin = 0.18 
+            xmax = 0.29 
+            text = "Q n" 
+        intervals [3]:
+            xmin = 0.29 
+            xmax = 0.35 
+            text = "D V" 
+        intervals [4]:
+            xmin = 0.35 
+            xmax = 0.762562 
+            text = "R I m @U t" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 0.762562 
+        intervals: size = 13 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.04 
+            text = "k" 
+        intervals [2]:
+            xmin = 0.04 
+            xmax = 0.07 
+            text = "l" 
+        intervals [3]:
+            xmin = 0.07 
+            xmax = 0.13 
+            text = "I" 
+        intervals [4]:
+            xmin = 0.13 
+            xmax = 0.18 
+            text = "k" 
+        intervals [5]:
+            xmin = 0.18 
+            xmax = 0.23 
+            text = "Q" 
+        intervals [6]:
+            xmin = 0.23 
+            xmax = 0.29 
+            text = "n" 
+        intervals [7]:
+            xmin = 0.29 
+            xmax = 0.32237831179145604 
+            text = "D" 
+        intervals [8]:
+            xmin = 0.32237831179145604 
+            xmax = 0.3660863160025834 
+            text = "V" 
+        intervals [9]:
+            xmin = 0.3660863160025834 
+            xmax = 0.46 
+            text = "R" 
+        intervals [10]:
+            xmin = 0.46 
+            xmax = 0.54 
+            text = "6" 
+        intervals [11]:
+            xmin = 0.54 
+            xmax = 0.57 
+            text = "m" 
+        intervals [12]:
+            xmin = 0.57 
+            xmax = 0.72 
+            text = "@U" 
+        intervals [13]:
+            xmin = 0.72 
+            xmax = 0.762562 
+            text = "t" 

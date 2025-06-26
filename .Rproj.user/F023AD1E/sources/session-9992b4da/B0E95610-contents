@@ -1,0 +1,20 @@
+
+
+y = c("spanish", "english", "english", "english", "english", "spanish", "spanish", "spanish", "spanish", "spanish") 
+
+
+
+M1 = matrix(rnorm(n = 60 * 5, mean = 60, sd = 15), nrow = 5, ncol = 10)
+M2 = matrix(rnorm(n = 60 * 5, mean = 0, sd = 15), nrow = 4, ncol = 10)
+
+M = rbind(M1,M2)
+colnames(M) <- paste0("V", seq_len(ncol(M)))
+
+gnb <- gaussian_naive_bayes(x = M, y = y)
+
+M1_n = matrix(rnorm(n = 60 * 6, mean = 60, sd = 15), nrow = 6, ncol = 10)
+M2_n = matrix(rnorm(n = 60 * 4, mean = 0, sd = 15), nrow = 4, ncol = 10)
+
+M_n = rbind(M1_n,M2_n)
+
+predict(gnb, newdata = M_n, type = "class") # head(gnb %class% M)
