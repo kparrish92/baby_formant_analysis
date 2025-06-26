@@ -52,6 +52,12 @@ return(confusionMatrix(cm))
 
 ```
 
+
+Here are two plots showing all productions of the stimuli (both versions of all 64 items; 128 in total).
+As can be seen in the first figure, there are some fricative tokens were produced as approximant-like, but the majority of tokens show good evidence of separation both in terms of vowel height and frontness. 
+The tokens in question totaled 38 and were those with f2 higher than 2000 and f1 higher than 750, leaving 90 tokens that are ideal.
+The second plot shows the 90 remaining tokens and we see clear separation.
+
 ```{r, echo=FALSE}
 plot_data %>% 
   ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
@@ -67,6 +73,7 @@ plot_data %>%
   scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
 ```
 
+The following list are the tokens in which both versions were removed. It might be worth re-recording these. 
 
 ```{r, echo=FALSE}
 read.csv(here("data", "text_tidy.csv")) %>% 
@@ -93,6 +100,12 @@ offset_formant_df_all = plot_data %>% select(type, f1e, f2e, f3e)
 offset_formant_df = filtered_data %>% select(type, f1e, f2e, f3e)
 
 ```
+
+Below we see the classifiers. Each of them was fit `naiveBayes` function in R. 
+There is an individual classifier for the onset, midpoint and offset of the vowel. 
+With all data, correctness hovers around 70 percent for all three time points in the vowels.
+When we filter, we approach or hit 100% correctness.
+
 
 ### Midpoint classifier (all data)
 ```{r}

@@ -60,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Here are two plots showing all productions of the stimuli (both versions of all 64 items; 128 in total). As can be seen in the first figure, there are some fricative tokens were produced as approximant-like, but the majority of tokens show good evidence of separation both in terms of vowel height and frontness. The tokens in question totaled 38 and were those with f2 higher than 2000 and f1 higher than 750, leaving 90 tokens that are ideal. The second plot shows the 90 remaining tokens and we see clear separation.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
@@ -70,6 +71,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The following list are the tokens in which both versions were removed. It might be worth re-recording these.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -124,6 +126,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
+<p>Below we see the classifiers. Each of them was fit <code>naiveBayes</code> function in R. There is an individual classifier for the onset, midpoint and offset of the vowel. With all data, correctness hovers around 70 percent for all three time points in the vowels. When we filter, we approach or hit 100% correctness.</p>
 <section id="midpoint-classifier-all-data" class="level3">
 <h3 class="anchored" data-anchor-id="midpoint-classifier-all-data">Midpoint classifier (all data)</h3>
 <div class="cell">
@@ -132,26 +135,26 @@ ul.task-list li input[type="checkbox"] {
 
              y_pred
               approximant fricative
-  approximant          28         0
-  fricative            18        18
+  approximant          27         0
+  fricative            17        20
                                          
-               Accuracy : 0.7188         
-                 95% CI : (0.5924, 0.824)
-    No Information Rate : 0.7188         
-    P-Value [Acc &gt; NIR] : 0.5631         
+               Accuracy : 0.7344         
+                 95% CI : (0.6091, 0.837)
+    No Information Rate : 0.6875         
+    P-Value [Acc &gt; NIR] : 0.2532251      
                                          
-                  Kappa : 0.4667         
+                  Kappa : 0.4982         
                                          
- Mcnemar's Test P-Value : 6.151e-05      
+ Mcnemar's Test P-Value : 0.0001042      
                                          
-            Sensitivity : 0.6087         
+            Sensitivity : 0.6136         
             Specificity : 1.0000         
          Pos Pred Value : 1.0000         
-         Neg Pred Value : 0.5000         
-             Prevalence : 0.7188         
-         Detection Rate : 0.4375         
-   Detection Prevalence : 0.4375         
-      Balanced Accuracy : 0.8043         
+         Neg Pred Value : 0.5405         
+             Prevalence : 0.6875         
+         Detection Rate : 0.4219         
+   Detection Prevalence : 0.4219         
+      Balanced Accuracy : 0.8068         
                                          
        'Positive' Class : approximant    
                                          </code></pre>
@@ -166,13 +169,13 @@ ul.task-list li input[type="checkbox"] {
 
              y_pred
               approximant fricative
-  approximant          28         0
-  fricative             0        17
+  approximant          26         0
+  fricative             0        19
                                      
                Accuracy : 1          
                  95% CI : (0.9213, 1)
-    No Information Rate : 0.6222     
-    P-Value [Acc &gt; NIR] : 5.34e-10   
+    No Information Rate : 0.5778     
+    P-Value [Acc &gt; NIR] : 1.902e-11  
                                      
                   Kappa : 1          
                                      
@@ -182,9 +185,9 @@ ul.task-list li input[type="checkbox"] {
             Specificity : 1.0000     
          Pos Pred Value : 1.0000     
          Neg Pred Value : 1.0000     
-             Prevalence : 0.6222     
-         Detection Rate : 0.6222     
-   Detection Prevalence : 0.6222     
+             Prevalence : 0.5778     
+         Detection Rate : 0.5778     
+   Detection Prevalence : 0.5778     
       Balanced Accuracy : 1.0000     
                                      
        'Positive' Class : approximant
@@ -235,25 +238,25 @@ ul.task-list li input[type="checkbox"] {
              y_pred
               approximant fricative
   approximant          27         0
-  fricative             0        18
+  fricative             0        17
                                      
                Accuracy : 1          
-                 95% CI : (0.9213, 1)
-    No Information Rate : 0.6        
-    P-Value [Acc &gt; NIR] : 1.039e-10  
+                 95% CI : (0.9196, 1)
+    No Information Rate : 0.6136     
+    P-Value [Acc &gt; NIR] : 4.657e-10  
                                      
                   Kappa : 1          
                                      
  Mcnemar's Test P-Value : NA         
                                      
-            Sensitivity : 1.0        
-            Specificity : 1.0        
-         Pos Pred Value : 1.0        
-         Neg Pred Value : 1.0        
-             Prevalence : 0.6        
-         Detection Rate : 0.6        
-   Detection Prevalence : 0.6        
-      Balanced Accuracy : 1.0        
+            Sensitivity : 1.0000     
+            Specificity : 1.0000     
+         Pos Pred Value : 1.0000     
+         Neg Pred Value : 1.0000     
+             Prevalence : 0.6136     
+         Detection Rate : 0.6136     
+   Detection Prevalence : 0.6136     
+      Balanced Accuracy : 1.0000     
                                      
        'Positive' Class : approximant
                                      </code></pre>
@@ -268,29 +271,29 @@ ul.task-list li input[type="checkbox"] {
 
              y_pred
               approximant fricative
-  approximant          26         1
-  fricative            14        23
-                                          
-               Accuracy : 0.7656          
-                 95% CI : (0.6431, 0.8625)
-    No Information Rate : 0.625           
-    P-Value [Acc &gt; NIR] : 0.012160        
-                                          
-                  Kappa : 0.5489          
-                                          
- Mcnemar's Test P-Value : 0.001946        
-                                          
-            Sensitivity : 0.6500          
-            Specificity : 0.9583          
-         Pos Pred Value : 0.9630          
-         Neg Pred Value : 0.6216          
-             Prevalence : 0.6250          
-         Detection Rate : 0.4062          
-   Detection Prevalence : 0.4219          
-      Balanced Accuracy : 0.8042          
-                                          
-       'Positive' Class : approximant     
-                                          </code></pre>
+  approximant          26         0
+  fricative            17        21
+                                         
+               Accuracy : 0.7344         
+                 95% CI : (0.6091, 0.837)
+    No Information Rate : 0.6719         
+    P-Value [Acc &gt; NIR] : 0.1762500      
+                                         
+                  Kappa : 0.5009         
+                                         
+ Mcnemar's Test P-Value : 0.0001042      
+                                         
+            Sensitivity : 0.6047         
+            Specificity : 1.0000         
+         Pos Pred Value : 1.0000         
+         Neg Pred Value : 0.5526         
+             Prevalence : 0.6719         
+         Detection Rate : 0.4062         
+   Detection Prevalence : 0.4062         
+      Balanced Accuracy : 0.8023         
+                                         
+       'Positive' Class : approximant    
+                                         </code></pre>
 </div>
 </div>
 </section>
@@ -302,25 +305,25 @@ ul.task-list li input[type="checkbox"] {
 
              y_pred
               approximant fricative
-  approximant          27         1
+  approximant          26         1
   fricative             0        17
                                           
-               Accuracy : 0.9778          
-                 95% CI : (0.8823, 0.9994)
-    No Information Rate : 0.6             
-    P-Value [Acc &gt; NIR] : 3.222e-09       
+               Accuracy : 0.9773          
+                 95% CI : (0.8798, 0.9994)
+    No Information Rate : 0.5909          
+    P-Value [Acc &gt; NIR] : 2.784e-09       
                                           
-                  Kappa : 0.9533          
+                  Kappa : 0.9526          
                                           
  Mcnemar's Test P-Value : 1               
                                           
             Sensitivity : 1.0000          
             Specificity : 0.9444          
-         Pos Pred Value : 0.9643          
+         Pos Pred Value : 0.9630          
          Neg Pred Value : 1.0000          
-             Prevalence : 0.6000          
-         Detection Rate : 0.6000          
-   Detection Prevalence : 0.6222          
+             Prevalence : 0.5909          
+         Detection Rate : 0.5909          
+   Detection Prevalence : 0.6136          
       Balanced Accuracy : 0.9722          
                                           
        'Positive' Class : approximant     
