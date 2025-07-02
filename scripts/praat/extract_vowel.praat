@@ -33,7 +33,7 @@ filePath$ = "../../sound_files/CoartCondition/"
 filedelete 'outputDir$'/'outFile$'
 
 # Create newfile with header
-fileappend 'outputDir$'/'outFile$' fileID,f1,f2,f3,duration'newline$'
+fileappend 'outputDir$'/'outFile$' fileID,f1,f2,f3,f1b,f2b,f3b,f1e,f2e,f3e'newline$'
 
 # -----------------------------------------------------------------------
 
@@ -67,10 +67,12 @@ for file to numberOfFiles
 	if labels = 0
 
 		# Calculate mid-point of vowel 
-		vowelStart = Get start point: 3, 9
-		vowelEnd  = Get end point: 3, 9
+		vowelStart = Get start point: 3, 8
+		vowelEnd  = Get end point: 3, 8
 		durationV =  vowelEnd - vowelStart
 		mp = vowelStart + (durationV * 0.50)
+		onset = vowelStart + (durationV * 0.15)
+        offset = vowelStart + (durationV * 0.85)
 
 		# Get formants
 		select Sound 'prefix$'
@@ -79,12 +81,18 @@ for file to numberOfFiles
 		f2 = do ("Get value at time...", 2, mp, "Hertz", "Linear")
 		f3 = do ("Get value at time...", 3, mp, "Hertz", "Linear")
 
+		f1on = do ("Get value at time...", 1, onset, "Hertz", "Linear")
+		f2on = do ("Get value at time...", 2, onset, "Hertz", "Linear")
+		f3on = do ("Get value at time...", 3, onset, "Hertz", "Linear")
+
+		f1off = do ("Get value at time...", 1, offset, "Hertz", "Linear")
+		f2off = do ("Get value at time...", 2, offset, "Hertz", "Linear")
+		f3off = do ("Get value at time...", 3, offset, "Hertz", "Linear")
+
 	endif
 
 	# Append data to output 
-	fileappend 'outputDir$'/formants.csv 'prefix$','f1:2','f2:2','f3:2','durationV', 'vowelStart', 'vowelEnd', 'mp', 'newline$'
-	# Printline for bug fixes
-	printline 'f1:2','f2:2','f3:2' 'durationV', 'vowelStart', 'vowelEnd', 'mp'
+	fileappend 'outputDir$'/formants.csv 'prefix$','f1:2','f2:2','f3:2', 'f1on:2','f1on:2','f1on:2', 'f1off:2','f1off:2','f1off:2' 'newline$'
 
 
 	# Clean up

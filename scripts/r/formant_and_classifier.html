@@ -60,206 +60,110 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Here are two plots showing all productions of the stimuli (both versions of all 64 items; 128 in total). As can be seen in the first figure, there are some fricative tokens were produced as approximant-like, but the majority of tokens show good evidence of separation both in terms of vowel height and frontness. The tokens in question totaled 38 and were those with f2 higher than 2000 and f1 higher than 750, leaving 90 tokens that are ideal. The second plot shows the 90 remaining tokens and we see clear separation.</p>
+<section id="onset-f1-and-f2-for-approximants-and-fricatives" class="level2">
+<h2 class="anchored" data-anchor-id="onset-f1-and-f2-for-approximants-and-fricatives">Onset F1 and F2 for approximants and fricatives</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="midpoint-f1-and-f2-for-approximants-and-fricatives" class="level2">
+<h2 class="anchored" data-anchor-id="midpoint-f1-and-f2-for-approximants-and-fricatives">Midpoint F1 and F2 for approximants and fricatives</h2>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The following list are the tokens in which both versions were removed. It might be worth re-recording these.</p>
+</section>
+<section id="offset-f1-and-f2-for-approximants-and-fricatives" class="level2">
+<h2 class="anchored" data-anchor-id="offset-f1-and-f2-for-approximants-and-fricatives">Offset F1 and F2 for approximants and fricatives</h2>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">no</th>
-<th style="text-align: left;">sentence</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">11</td>
-<td style="text-align: left;">Click on the fork</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">14</td>
-<td style="text-align: left;">Click on the scissors</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">17</td>
-<td style="text-align: left;">Click on the submarine</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">26</td>
-<td style="text-align: left;">Click on the sheep</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">29</td>
-<td style="text-align: left;">Click on the fish</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">Click on the screwdriver</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">30</td>
-<td style="text-align: left;">Click on the skirt</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">40</td>
-<td style="text-align: left;">Click on the sausage</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">Click on the frog</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">43</td>
-<td style="text-align: left;">Click on the ski</td>
-</tr>
-</tbody>
-</table>
+<p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Below we see the classifiers. Each of them was fit <code>naiveBayes</code> function in R. There is an individual classifier for the onset, midpoint and offset of the vowel. With all data, correctness hovers around 70 percent for all three time points in the vowels. When we filter, we approach or hit 100% correctness.</p>
-<section id="midpoint-classifier-all-data" class="level3">
-<h3 class="anchored" data-anchor-id="midpoint-classifier-all-data">Midpoint classifier (all data)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="formant_and_classifier_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="onset-classifier" class="level3">
+<h3 class="anchored" data-anchor-id="onset-classifier">Onset classifier</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
              y_pred
-              approximant fricative
-  approximant          27         0
-  fricative            17        20
-                                         
-               Accuracy : 0.7344         
-                 95% CI : (0.6091, 0.837)
-    No Information Rate : 0.6875         
-    P-Value [Acc &gt; NIR] : 0.2532251      
-                                         
-                  Kappa : 0.4982         
-                                         
- Mcnemar's Test P-Value : 0.0001042      
-                                         
-            Sensitivity : 0.6136         
-            Specificity : 1.0000         
-         Pos Pred Value : 1.0000         
-         Neg Pred Value : 0.5405         
-             Prevalence : 0.6875         
-         Detection Rate : 0.4219         
-   Detection Prevalence : 0.4219         
-      Balanced Accuracy : 0.8068         
-                                         
-       'Positive' Class : approximant    
-                                         </code></pre>
+              approximant fricative no_coart
+  approximant          14        14        0
+  fricative             2        33        1
+  no_coart              0         1       15
+
+Overall Statistics
+                                          
+               Accuracy : 0.775           
+                 95% CI : (0.6679, 0.8609)
+    No Information Rate : 0.6             
+    P-Value [Acc &gt; NIR] : 0.0007272       
+                                          
+                  Kappa : 0.6371          
+                                          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: approximant Class: fricative Class: no_coart
+Sensitivity                      0.8750           0.6875          0.9375
+Specificity                      0.7812           0.9062          0.9844
+Pos Pred Value                   0.5000           0.9167          0.9375
+Neg Pred Value                   0.9615           0.6591          0.9844
+Prevalence                       0.2000           0.6000          0.2000
+Detection Rate                   0.1750           0.4125          0.1875
+Detection Prevalence             0.3500           0.4500          0.2000
+Balanced Accuracy                0.8281           0.7969          0.9609</code></pre>
 </div>
 </div>
 </section>
-<section id="midpoint-classifier-filtered-data" class="level3">
-<h3 class="anchored" data-anchor-id="midpoint-classifier-filtered-data">Midpoint classifier (filtered data)</h3>
+<section id="midpoint-classifier" class="level3">
+<h3 class="anchored" data-anchor-id="midpoint-classifier">Midpoint classifier</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix and Statistics
 
              y_pred
-              approximant fricative
-  approximant          26         0
-  fricative             0        19
-                                     
-               Accuracy : 1          
-                 95% CI : (0.9213, 1)
-    No Information Rate : 0.5778     
-    P-Value [Acc &gt; NIR] : 1.902e-11  
-                                     
-                  Kappa : 1          
-                                     
- Mcnemar's Test P-Value : NA         
-                                     
-            Sensitivity : 1.0000     
-            Specificity : 1.0000     
-         Pos Pred Value : 1.0000     
-         Neg Pred Value : 1.0000     
-             Prevalence : 0.5778     
-         Detection Rate : 0.5778     
-   Detection Prevalence : 0.5778     
-      Balanced Accuracy : 1.0000     
-                                     
-       'Positive' Class : approximant
-                                     </code></pre>
-</div>
-</div>
-</section>
-<section id="onset-classifier-all-data" class="level3">
-<h3 class="anchored" data-anchor-id="onset-classifier-all-data">Onset classifier (all data)</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
+              approximant fricative no_coart
+  approximant          13        14        0
+  fricative             4        33        0
+  no_coart              2         0       14
 
-             y_pred
-              approximant fricative
-  approximant          28         0
-  fricative            18        18
-                                         
-               Accuracy : 0.7188         
-                 95% CI : (0.5924, 0.824)
-    No Information Rate : 0.7188         
-    P-Value [Acc &gt; NIR] : 0.5631         
-                                         
-                  Kappa : 0.4667         
-                                         
- Mcnemar's Test P-Value : 6.151e-05      
-                                         
-            Sensitivity : 0.6087         
-            Specificity : 1.0000         
-         Pos Pred Value : 1.0000         
-         Neg Pred Value : 0.5000         
-             Prevalence : 0.7188         
-         Detection Rate : 0.4375         
-   Detection Prevalence : 0.4375         
-      Balanced Accuracy : 0.8043         
-                                         
-       'Positive' Class : approximant    
-                                         </code></pre>
-</div>
-</div>
-</section>
-<section id="onset-classifier-filtered-data" class="level3">
-<h3 class="anchored" data-anchor-id="onset-classifier-filtered-data">Onset classifier (filtered data)</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
+Overall Statistics
+                                          
+               Accuracy : 0.75            
+                 95% CI : (0.6406, 0.8401)
+    No Information Rate : 0.5875          
+    P-Value [Acc &gt; NIR] : 0.00179         
+                                          
+                  Kappa : 0.5923          
+                                          
+ Mcnemar's Test P-Value : NA              
 
-             y_pred
-              approximant fricative
-  approximant          27         0
-  fricative             0        17
-                                     
-               Accuracy : 1          
-                 95% CI : (0.9196, 1)
-    No Information Rate : 0.6136     
-    P-Value [Acc &gt; NIR] : 4.657e-10  
-                                     
-                  Kappa : 1          
-                                     
- Mcnemar's Test P-Value : NA         
-                                     
-            Sensitivity : 1.0000     
-            Specificity : 1.0000     
-         Pos Pred Value : 1.0000     
-         Neg Pred Value : 1.0000     
-             Prevalence : 0.6136     
-         Detection Rate : 0.6136     
-   Detection Prevalence : 0.6136     
-      Balanced Accuracy : 1.0000     
-                                     
-       'Positive' Class : approximant
-                                     </code></pre>
+Statistics by Class:
+
+                     Class: approximant Class: fricative Class: no_coart
+Sensitivity                      0.6842           0.7021          1.0000
+Specificity                      0.7705           0.8788          0.9697
+Pos Pred Value                   0.4815           0.8919          0.8750
+Neg Pred Value                   0.8868           0.6744          1.0000
+Prevalence                       0.2375           0.5875          0.1750
+Detection Rate                   0.1625           0.4125          0.1750
+Detection Prevalence             0.3375           0.4625          0.2000
+Balanced Accuracy                0.7274           0.7905          0.9848</code></pre>
 </div>
 </div>
 </section>
@@ -270,66 +174,36 @@ ul.task-list li input[type="checkbox"] {
 <pre><code>Confusion Matrix and Statistics
 
              y_pred
-              approximant fricative
-  approximant          26         0
-  fricative            17        21
-                                         
-               Accuracy : 0.7344         
-                 95% CI : (0.6091, 0.837)
-    No Information Rate : 0.6719         
-    P-Value [Acc &gt; NIR] : 0.1762500      
-                                         
-                  Kappa : 0.5009         
-                                         
- Mcnemar's Test P-Value : 0.0001042      
-                                         
-            Sensitivity : 0.6047         
-            Specificity : 1.0000         
-         Pos Pred Value : 1.0000         
-         Neg Pred Value : 0.5526         
-             Prevalence : 0.6719         
-         Detection Rate : 0.4062         
-   Detection Prevalence : 0.4062         
-      Balanced Accuracy : 0.8023         
-                                         
-       'Positive' Class : approximant    
-                                         </code></pre>
+              approximant fricative no_coart
+  approximant          18        10        0
+  fricative             5        31        0
+  no_coart              0         0       16
+
+Overall Statistics
+                                          
+               Accuracy : 0.8125          
+                 95% CI : (0.7097, 0.8911)
+    No Information Rate : 0.5125          
+    P-Value [Acc &gt; NIR] : 2.438e-08       
+                                          
+                  Kappa : 0.7018          
+                                          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: approximant Class: fricative Class: no_coart
+Sensitivity                      0.7826           0.7561             1.0
+Specificity                      0.8246           0.8718             1.0
+Pos Pred Value                   0.6429           0.8611             1.0
+Neg Pred Value                   0.9038           0.7727             1.0
+Prevalence                       0.2875           0.5125             0.2
+Detection Rate                   0.2250           0.3875             0.2
+Detection Prevalence             0.3500           0.4500             0.2
+Balanced Accuracy                0.8036           0.8139             1.0</code></pre>
 </div>
 </div>
 </section>
-<section id="offset-classifier-filtered-data" class="level3">
-<h3 class="anchored" data-anchor-id="offset-classifier-filtered-data">Offset classifier (filtered data)</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Confusion Matrix and Statistics
-
-             y_pred
-              approximant fricative
-  approximant          26         1
-  fricative             0        17
-                                          
-               Accuracy : 0.9773          
-                 95% CI : (0.8798, 0.9994)
-    No Information Rate : 0.5909          
-    P-Value [Acc &gt; NIR] : 2.784e-09       
-                                          
-                  Kappa : 0.9526          
-                                          
- Mcnemar's Test P-Value : 1               
-                                          
-            Sensitivity : 1.0000          
-            Specificity : 0.9444          
-         Pos Pred Value : 0.9630          
-         Neg Pred Value : 1.0000          
-             Prevalence : 0.5909          
-         Detection Rate : 0.5909          
-   Detection Prevalence : 0.6136          
-      Balanced Accuracy : 0.9722          
-                                          
-       'Positive' Class : approximant     
-                                          </code></pre>
-</div>
-</div>
 </section>
 
 </main>

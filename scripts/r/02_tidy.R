@@ -3,6 +3,7 @@ formants = read.csv(here("data", "formants.csv"))
 
 text = read.csv(here("data", "text.csv"))
 
+
 text_list = list()
 
 for (i in 1:64) {
@@ -12,6 +13,7 @@ for (i in 1:64) {
                               consonant = text$consonant[i],
                               type = text$type[i])
 }
+
 
 text_df = do.call(rbind, text_list) %>% 
   select(file_name_append, type, consonant, sentence) %>% 

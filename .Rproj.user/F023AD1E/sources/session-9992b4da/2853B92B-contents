@@ -67,22 +67,10 @@ plot_data %>%
 
 ```{r, echo=FALSE}
 plot_data %>% 
-  filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant") %>%
   ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
     scale_color_manual(values = c("seagreen3", "orange")) +
   scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
-```
-
-The following list are the tokens in which both versions were removed. It might be worth re-recording these. 
-
-```{r, echo=FALSE}
-read.csv(here("data", "text_tidy.csv")) %>% 
-  filter(f2 < 2000 & f1 < 750 & type == "fricative") %>% 
-  select(fileID, sentence) %>% 
-  separate(fileID, into = c("no", "version")) %>% 
-  group_by(no, sentence) %>% 
-  summarize(n = n()) %>% filter(n == 2) %>% select(-n) %>% 
-  knitr::kable()
+# 610, 1379
 ```
 
 ```{r}
@@ -90,14 +78,13 @@ read.csv(here("data", "text_tidy.csv")) %>%
 filtered_data = plot_data %>% filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant")
 
 mid_formant_df = filtered_data %>% select(type, f1, f2, f3)
-mid_formant_df_all = plot_data %>% select(type, f1, f2, f3)
 
-onset_formant_df_all = plot_data %>% select(type, f1b, f2b, f3b)
-onset_formant_df = filtered_data %>% select(type, f1b, f2b, f3b)
+#onset_formant_df_all = plot_data %>% select(type, f1b, f2b, f3b)
+#onset_formant_df = filtered_data %>% select(type, f1b, f2b, f3b)
 
 
-offset_formant_df_all = plot_data %>% select(type, f1e, f2e, f3e)
-offset_formant_df = filtered_data %>% select(type, f1e, f2e, f3e)
+#offset_formant_df_all = plot_data %>% select(type, f1e, f2e, f3e)
+#offset_formant_df = filtered_data %>% select(type, f1e, f2e, f3e)
 
 ```
 
@@ -106,11 +93,6 @@ There is an individual classifier for the onset, midpoint and offset of the vowe
 With all data, correctness hovers around 70 percent for all three time points in the vowels.
 When we filter, we approach or hit 100% correctness.
 
-
-### Midpoint classifier (all data)
-```{r}
-run_classifier(mid_formant_df_all, .7)
-```
 
 ### Midpoint classifier (filtered data)
 ```{r}

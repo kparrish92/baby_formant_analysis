@@ -13,6 +13,9 @@ library(caTools)
 library(caret)
 plot_data = read.csv(here("data", "text_tidy.csv"))
 
+no_coart_data = read.csv(here("data", "formants_nocoart.csv")) %>% 
+  mutate(type = "no_coart")
+
 goodale_theme <- function() {
   theme(
     panel.background = element_rect(fill = "white"),
@@ -50,89 +53,135 @@ cm
 return(confusionMatrix(cm))
 }
 
+onset_no = no_coart_data %>% 
+  select(type, f1b,f2b,f3b)
+
+mid_no = no_coart_data %>% 
+  select(type, f1,f2,f3)
+
+off_set_no = no_coart_data %>% 
+  select(type, f1e,f2e,f3e)
+
+mid_formant_df = plot_data %>% select(type, f1, f2, f3) %>% 
+  rbind(mid_no)
+
+onset_formant_df = plot_data %>% select(type, f1b, f2b, f3b) %>% 
+  rbind(onset_no)
+  
+offset_formant_df = plot_data %>% select(type, f1e, f2e, f3e) %>% 
+  rbind(off_set_no)
+
+
+```
+## Onset F1 and F2 for approximants and fricatives 
+
+```{r, echo=FALSE}
+plot_data %>% 
+  ggplot(aes(y = f1b, x = f2b, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+    scale_color_manual(values = c("seagreen3", "orange")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 580, x = 1351), color = "red", size = 3)
+# 580, 1351
 ```
 
-
-Here are two plots showing all productions of the stimuli (both versions of all 64 items; 128 in total).
-As can be seen in the first figure, there are some fricative tokens were produced as approximant-like, but the majority of tokens show good evidence of separation both in terms of vowel height and frontness. 
-The tokens in question totaled 38 and were those with f2 higher than 2000 and f1 higher than 750, leaving 90 tokens that are ideal.
-The second plot shows the 90 remaining tokens and we see clear separation.
+## Midpoint F1 and F2 for approximants and fricatives 
 
 ```{r, echo=FALSE}
 plot_data %>% 
   ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
   scale_color_manual(values = c("seagreen3", "orange")) +
-  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 610, x = 1379), color = "red", size = 3) 
+
+# 610, 1379
+
 ```
+
+## Offset F1 and F2 for approximants and fricatives 
 
 ```{r, echo=FALSE}
 plot_data %>% 
-  filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant") %>%
-  ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+  ggplot(aes(y = f1e, x = f2e, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
     scale_color_manual(values = c("seagreen3", "orange")) +
-  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed")
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 586, x = 1290), color = "red", size = 3)
+# 586 1290
 ```
 
-The following list are the tokens in which both versions were removed. It might be worth re-recording these. 
 
-```{r, echo=FALSE}
-read.csv(here("data", "text_tidy.csv")) %>% 
-  filter(f2 < 2000 & f1 < 750 & type == "fricative") %>% 
-  select(fileID, sentence) %>% 
-  separate(fileID, into = c("no", "version")) %>% 
-  group_by(no, sentence) %>% 
-  summarize(n = n()) %>% filter(n == 2) %>% select(-n) %>% 
-  knitr::kable()
+```{r}
+plot_data_tp = plot_data %>% 
+  select(fileID, type, consonant, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b) %>% 
+  pivot_longer(f1:f3b, names_to = "formant_e", values_to = "hertz") %>% 
+  mutate(time_point = 
+           case_when(
+             formant_e == "f1" | formant_e == "f2" | formant_e == "f3" ~ "mid",
+             formant_e == "f1b" | formant_e == "f2b" | formant_e == "f3b" ~ "onset",
+             formant_e == "f1e" | formant_e == "f2e" | formant_e == "f3e" ~ "offset"
+           )) %>% 
+  mutate(formant = 
+           case_when(
+             formant_e == "f1" | formant_e == "f1e" | formant_e == "f1b" ~ "f1",
+             formant_e == "f2" | formant_e == "f2e" | formant_e == "f2b" ~ "f2",
+             formant_e == "f3" | formant_e == "f3e" | formant_e == "f3b" ~ "f3"
+           )) %>% 
+  group_by(consonant, formant, time_point) %>% 
+  summarise(mean_formant = mean(hertz)) 
+
+
+plot_data_tp$time_point <- factor(plot_data_tp$time_point, levels=c("onset", "mid", "offset"))
+
+plot_data_tp %>% 
+  ggplot(aes(x = time_point, y = mean_formant, color = formant, group = formant)) + geom_point() + 
+    scale_color_manual(values = c("purple", "gold", "gray50")) +
+  facet_wrap(~consonant) + geom_line() + theme_minimal() + goodale_theme()
 ```
+
 
 ```{r}
 
-filtered_data = plot_data %>% filter(f2 > 2000 & f1 > 750 & type == "fricative" | type == "approximant")
+plot_type = plot_data %>% 
+  select(type, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b, fileID) %>% 
+  rbind(no_coart_data) %>% 
+  pivot_longer(f1:f3b, names_to = "formant_e", values_to = "hertz") %>% 
+  mutate(time_point = 
+           case_when(
+             formant_e == "f1" | formant_e == "f2" | formant_e == "f3" ~ "mid",
+             formant_e == "f1b" | formant_e == "f2b" | formant_e == "f3b" ~ "onset",
+             formant_e == "f1e" | formant_e == "f2e" | formant_e == "f3e" ~ "offset"
+           )) %>% 
+  mutate(formant = 
+           case_when(
+             formant_e == "f1" | formant_e == "f1e" | formant_e == "f1b" ~ "f1",
+             formant_e == "f2" | formant_e == "f2e" | formant_e == "f2b" ~ "f2",
+             formant_e == "f3" | formant_e == "f3e" | formant_e == "f3b" ~ "f3"
+           )) %>% 
+  group_by(type, formant, time_point) %>% 
+  summarise(mean_formant = mean(hertz)) 
 
-mid_formant_df = filtered_data %>% select(type, f1, f2, f3)
-mid_formant_df_all = plot_data %>% select(type, f1, f2, f3)
 
-onset_formant_df_all = plot_data %>% select(type, f1b, f2b, f3b)
-onset_formant_df = filtered_data %>% select(type, f1b, f2b, f3b)
+plot_type$time_point <- factor(plot_type$time_point, levels=c("onset", "mid", "offset"))
 
-
-offset_formant_df_all = plot_data %>% select(type, f1e, f2e, f3e)
-offset_formant_df = filtered_data %>% select(type, f1e, f2e, f3e)
+plot_type %>% 
+  ggplot(aes(x = time_point, y = mean_formant, color = formant, group = formant)) + geom_point() + 
+    scale_color_manual(values = c("purple", "gold", "gray50")) +
+  facet_wrap(~type) + geom_line() + theme_minimal() + goodale_theme()
 
 ```
 
-Below we see the classifiers. Each of them was fit `naiveBayes` function in R. 
-There is an individual classifier for the onset, midpoint and offset of the vowel. 
-With all data, correctness hovers around 70 percent for all three time points in the vowels.
-When we filter, we approach or hit 100% correctness.
 
-
-### Midpoint classifier (all data)
-```{r}
-run_classifier(mid_formant_df_all, .7)
-```
-
-### Midpoint classifier (filtered data)
-```{r}
-run_classifier(mid_formant_df, .7)
-```
-
-### Onset classifier (all data)
-```{r}
-run_classifier(onset_formant_df_all, .7)
-```
-
-### Onset classifier (filtered data)
+### Onset classifier 
 ```{r}
 run_classifier(onset_formant_df, .7)
 ```
 
-### Offset classifier (all data)
+### Midpoint classifier 
 ```{r}
-run_classifier(offset_formant_df_all, .7)
+run_classifier(mid_formant_df, .7)
 ```
 
-### Offset classifier (filtered data)
+### Offset classifier (all data)
 ```{r}
 run_classifier(offset_formant_df, .7)
 ```
+
+
+
+
