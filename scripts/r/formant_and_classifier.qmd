@@ -83,6 +83,17 @@ plot_data %>%
 # 580, 1351
 ```
 
+## Onset F1 and F2 for approximants, fricatives, and no coarticulation
+
+```{r}
+plot_data %>% 
+  select(type, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b, fileID) %>% 
+  rbind(no_coart_data) %>% 
+  ggplot(aes(y = f1b, x = f2b, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+        scale_color_manual(values = c("seagreen3", "orange", "pink")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 580, x = 1351), color = "red", size = 3)
+```
+
 ## Midpoint F1 and F2 for approximants and fricatives 
 
 ```{r, echo=FALSE}
@@ -92,8 +103,19 @@ plot_data %>%
   scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 610, x = 1379), color = "red", size = 3) 
 
 # 610, 1379
-
 ```
+
+## Midpoint F1 and F2 for approximants, fricatives, and no coarticulation
+
+```{r}
+plot_data %>% 
+  select(type, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b, fileID) %>% 
+  rbind(no_coart_data) %>% 
+  ggplot(aes(y = f1, x = f2, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+        scale_color_manual(values = c("seagreen3", "orange", "pink")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 610, x = 1379), color = "red", size = 3) 
+```
+
 
 ## Offset F1 and F2 for approximants and fricatives 
 
@@ -105,7 +127,20 @@ plot_data %>%
 # 586 1290
 ```
 
+## Offset F1 and F2 for approximants, fricatives, and no coarticulation
 
+```{r}
+plot_data %>% 
+  select(type, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b, fileID) %>% 
+  rbind(no_coart_data) %>% 
+  ggplot(aes(y = f1e, x = f2e, color = type)) + geom_point(size = 2) + scale_x_reverse() + 
+      scale_color_manual(values = c("seagreen3", "orange", "pink")) +
+  scale_y_reverse() + theme_minimal() + goodale_theme() + ylab("F1") + xlab("F2") + stat_ellipse(linetype = "dashed") + geom_point(aes(y = 586, x = 1290), color = "red", size = 3)
+```
+
+
+
+## Formant trajectories by coarticulated consonants
 ```{r}
 plot_data_tp = plot_data %>% 
   select(fileID, type, consonant, f1,f2,f3,f1e,f2e,f3e,f1b,f2b,f3b) %>% 
@@ -135,6 +170,7 @@ plot_data_tp %>%
 ```
 
 
+## Formant trajectories by type
 ```{r}
 
 plot_type = plot_data %>% 
@@ -167,17 +203,17 @@ plot_type %>%
 ```
 
 
-### Onset classifier 
+### Onset classifier with 3 levels
 ```{r}
 run_classifier(onset_formant_df, .7)
 ```
 
-### Midpoint classifier 
+### Midpoint classifier with 3 levels
 ```{r}
 run_classifier(mid_formant_df, .7)
 ```
 
-### Offset classifier (all data)
+### Offset classifier with 3 levels
 ```{r}
 run_classifier(offset_formant_df, .7)
 ```
